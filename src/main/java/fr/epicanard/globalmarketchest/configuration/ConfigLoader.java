@@ -172,7 +172,7 @@ public class ConfigLoader {
     return Arrays.stream(Material.values())
         .map(mat -> {
           ItemStack item = new ItemStack(mat);
-          return ItemStackUtils.getMinecraftKey(item);
+          return ItemStackUtils.getItemNamespaceKey(item);
         })
         .filter(mat -> !"minecraft:air".equals(mat) && !excludedItems.contains(mat));
   }

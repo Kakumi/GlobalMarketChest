@@ -1,5 +1,6 @@
 package fr.epicanard.globalmarketchest.gui;
 
+import fr.epicanard.globalmarketchest.GlobalMarketChest;
 import fr.epicanard.globalmarketchest.utils.ItemStackUtils;
 import fr.epicanard.globalmarketchest.utils.LoggerUtils;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -131,20 +132,19 @@ public class CategoryHandler {
    * @return Category name
    */
   public String getCategory(ItemStack item) {
-    String mk = ItemStackUtils.getMinecraftKey(item);
-
+    String mk = ItemStackUtils.getItemNamespaceKey(item);
     return this.getCategory(mk);
   }
 
   /**
-   * Get the category name from a minecraft key
+   * Get the category name from a namespace key
    *
-   * @param minecraftKey MinecraftKey to search inside categories
+   * @param namespaceKey NamespaceKey to search inside categories
    * @return Category name
    */
-  public String getCategory(String minecraftKey) {
+  public String getCategory(String namespaceKey) {
     for (String category : this.getCategories()) {
-      if (Arrays.asList(this.getItems(category)).contains(minecraftKey))
+      if (Arrays.asList(this.getItems(category)).contains(namespaceKey))
         return category;
     }
     return "!";

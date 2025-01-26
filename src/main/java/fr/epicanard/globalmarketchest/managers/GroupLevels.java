@@ -119,7 +119,7 @@ public enum GroupLevels {
   private void level2(SelectBuilder builder, Integer groupLevels, AuctionInfo match, String category) {
     switch (groupLevels) {
       case 3:
-        builder.addCondition("itemStack", ItemStackUtils.getMinecraftKey(DatabaseUtils.deserialize(match.getItemMeta())));
+        builder.addCondition("itemStack", ItemStackUtils.getItemNamespaceKey(DatabaseUtils.deserialize(match.getItemMeta())));
         builder.addField("itemMeta");
         builder.addField("COUNT(itemMeta) AS count");
         builder.setExtension("GROUP BY itemMeta");

@@ -15,6 +15,7 @@ import fr.epicanard.globalmarketchest.exceptions.CantLoadConfigException;
 import fr.epicanard.globalmarketchest.exceptions.ConfigException;
 import fr.epicanard.globalmarketchest.exceptions.FailedInitException;
 import fr.epicanard.globalmarketchest.exceptions.RequiredPluginException;
+import fr.epicanard.globalmarketchest.extensions.ItemsAdderApi;
 import fr.epicanard.globalmarketchest.gui.CategoryHandler;
 import fr.epicanard.globalmarketchest.gui.InterfacesLoader;
 import fr.epicanard.globalmarketchest.gui.InventoriesHandler;
@@ -60,6 +61,8 @@ public class GlobalMarketChest extends JavaPlugin {
   private Double tax;
   @Getter
   private String serverName;
+  @Getter
+  private ItemsAdderApi itemsAdderApi;
 
   public GlobalMarketChest() {
     // Initialization of loader
@@ -85,6 +88,9 @@ public class GlobalMarketChest extends JavaPlugin {
       return;
     }
     this.serverName = ConfigUtils.getString("MultiServer.ServerName", "default");
+
+    plugin.getLogger().info("§aLoading extensions:");
+    this.itemsAdderApi = new ItemsAdderApi(this);
 
     this.catHandler = new CategoryHandler(GlobalMarketChest.plugin.getConfigLoader().getCategories());
     ShopUtils.init();
@@ -139,7 +145,6 @@ public class GlobalMarketChest extends JavaPlugin {
     if (ConfigUtils.getBoolean("General.CheckUpdate", true)) {
       GlobalMarketChest.checkNewVersion(this.getServer().getConsoleSender());
     }
-
   }
 
   @Override

@@ -1,5 +1,6 @@
 package fr.epicanard.globalmarketchest.utils;
 
+import fr.epicanard.globalmarketchest.GlobalMarketChest;
 import fr.epicanard.globalmarketchest.utils.reflection.VersionSupportUtils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
@@ -40,7 +41,10 @@ public class ItemStackUtils {
 
     String[] spec = name.split("/");
 
-    ItemStack item = VersionSupportUtils.getInstance().getItemStack(spec[0]);
+    ItemStack item = GlobalMarketChest.plugin.getItemsAdderApi().getItem(spec[0]);
+    if (item == null) {
+      item = VersionSupportUtils.getInstance().getItemStack(spec[0]);
+    }
 
     if (item != null) {
       if (spec.length > 1)
@@ -66,9 +70,14 @@ public class ItemStackUtils {
    * Get minecraft key from item
    *
    * @param item ItemStack
-   * @return minecraft key in string
+   * @return item namespace key in string
    */
-  public String getMinecraftKey(ItemStack item) {
+  public String getItemNamespaceKey(ItemStack item) {
+    String key = GlobalMarketChest.plugin.getItemsAdderApi().getNamespaceId(item);
+    if (key != null) {
+      return key;
+    }
+
     return VersionSupportUtils.getInstance().getMinecraftKey(item);
   }
 
@@ -243,7 +252,7 @@ public class ItemStackUtils {
    * @return If item is blacklisted
    */
   public Boolean isBlacklisted(final ItemStack item) {
-    final String mk = ItemStackUtils.getMinecraftKey(item);
+    final String mk = ItemStackUtils.getItemNamespaceKey(item);
     final List<String> itemLore = item.getItemMeta().getLore();
     final List<String> blacklistLore = ConfigUtils.getStringList("ItemsBlacklist.Lores");
     return ConfigUtils.getStringList("ItemsBlacklist.Items").contains(mk) || matchLore(itemLore, blacklistLore);

@@ -159,6 +159,10 @@
       <id>CodeMC</id>
       <url>https://repo.codemc.org/repository/maven-public</url>
     </repository>
+    <repository>
+      <id>matteodev</id>
+      <url>https://maven.devs.beer/</url>
+    </repository>
   </repositories>
 
   <dependencies>
@@ -198,6 +202,13 @@
       <artifactId>bstats-bukkit</artifactId>
       <version>1.7</version>
       <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>dev.lone</groupId>
+      <artifactId>api-itemsadder</artifactId>
+      <version>4.0.2-beta-release-11</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

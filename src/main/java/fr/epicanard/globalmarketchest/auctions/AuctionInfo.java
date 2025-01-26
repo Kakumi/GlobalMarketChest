@@ -116,7 +116,7 @@ public class AuctionInfo {
   public void setItemStack(ItemStack item) {
     ItemStack it = item.clone();
     it.setAmount(1);
-    this.itemStack = ItemStackUtils.getMinecraftKey(it);
+    this.itemStack = ItemStackUtils.getItemNamespaceKey(it);
     this.itemMeta = DatabaseUtils.serialize(it);
   }
 
